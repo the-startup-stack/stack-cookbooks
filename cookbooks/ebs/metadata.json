@@ -1,0 +1,34 @@
+{
+  "name": "ebs",
+  "description": "Mounts attached EBS volumes",
+  "long_description": "",
+  "maintainer": "John Alberts",
+  "maintainer_email": "john@alberts.me",
+  "license": "Apache 2.0",
+  "platforms": {
+  },
+  "dependencies": {
+    "aws": ">= 0.101.0",
+    "delayed_evaluator": ">= 0.0.0"
+  },
+  "recommendations": {
+  },
+  "suggestions": {
+  },
+  "conflicting": {
+  },
+  "providing": {
+  },
+  "replacing": {
+  },
+  "attributes": {
+  },
+  "groupings": {
+  },
+  "recipes": {
+    "ebs::volumes": "Mounts attached EBS volumes",
+    "ebs::raids": "Mounts attached EBS RAIDs",
+    "ebs::persistent": "Mounts volumes defined in attributes"
+  },
+  "version": "0.3.6"
+}

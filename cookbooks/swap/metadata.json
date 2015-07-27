@@ -1,0 +1,29 @@
+{
+  "name": "swap",
+  "version": "0.3.6",
+  "description": "Provides an LWRP for easily creating a managing swap files and swap partitions.",
+  "long_description": "Swap LWRP\n=========\n[![Build Status](https://travis-ci.org/sethvargo-cookbooks/swap.png?branch=master)](https://travis-ci.org/sethvargo-cookbooks/swap)\n[![Code Climate](https://codeclimate.com/github/sethvargo-cookbooks/swap.png)](https://codeclimate.com/github/sethvargo-cookbooks/swap)\n[![Dependency Status](https://gemnasium.com/sethvargo-cookbooks/swap.png)](https://gemnasium.com/sethvargo-cookbooks/swap)\n\nThis cookbook provides an LWRP for easily creating and managing swap files.\n\n**This cookbook requires Ruby 1.9 or higher!**\n\nUsage\n-----\nAdd a new swap:\n```ruby\nswap_file '/mnt/swap' do\n  size      1024    # MBs\nend\n```\n\nOr remove an existing one:\n```ruby\nswap_file '/mnt/swap' do\n  action    :remove\nend\n```\n\n### LWRP Attributes\n<table>\n  <tr>\n    <th>Attribute</th>\n    <th>Description</th>\n    <th>Example</th>\n    <th>Default</th>\n  </tr>\n  <tr>\n    <td>path</td>\n    <td>The path to put the swap file on the system</td>\n    <td>/mnt/swap</td>\n    <td></td>\n  </tr>\n  <tr>\n    <td>size</td>\n    <td>The size (in MBs) for the swap file</td>\n    <td>2048</td>\n    <td></td>\n  </tr>\n  <tr>\n    <td>persist</td>\n    <td>Persist the swapon</td>\n    <td>true</td>\n    <td>false</td>\n  </tr>\n</table>\n\n\nInstallation\n------------\nIf you're using [berkshelf](https://github.com/RiotGames/berkshelf), add `swap` to your `Berksfile`:\n\n```ruby\ncookbook 'swap'\n```\n\nOtherwise, install the cookbook from the community site:\n\n    knife cookbook site install swap\n\nHave any other cookbooks depend on this cookbook by adding it to the `metadata.rb`:\n\n```ruby\ndepends 'swap'\n```\n\nNow you can use the LWRP in your cookbook!\n\n\nContributing\n------------\n1. Fork the project\n2. Create a feature branch corresponding to you change\n3. Commit and test thoroughly\n4. Create a Pull Request on github\n    - ensure you add a detailed description of your changes\n\n\nLicense and Authors\n-------------------\n- Author:: Seth Vargo (sethvargo@gmail.com)\n\n```text\nCopyright 2012-2013, Seth Vargo\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.\n```\n",
+  "maintainer": "Seth Vargo",
+  "maintainer_email": "sethvargo@gmail.com",
+  "license": "Apache 2.0",
+  "platforms": {
+  },
+  "dependencies": {
+  },
+  "recommendations": {
+  },
+  "suggestions": {
+  },
+  "conflicting": {
+  },
+  "providing": {
+  },
+  "replacing": {
+  },
+  "attributes": {
+  },
+  "groupings": {
+  },
+  "recipes": {
+  }
+}

@@ -1,0 +1,31 @@
+# Max line length
+LineLength:
+  Max: 160
+
+# Allow 1.8 hash style
+HashSyntax:
+  Enabled: false
+
+# Don't require a _ to split an integer like 1000.
+Style/NumericLiterals:
+  Enabled: false
+
+# Allow either fail or raise.
+Style/SignalException:
+  Enabled: false
+
+# Needed for metadata.rb
+Style/SingleSpaceBeforeFirstArg:
+  Enabled: false
+
+# Snakes are bad..
+Style/FileName:
+  Enabled: false
+
+# Don't require UTF8
+Style/Encoding:
+  Enabled: false
+
+# Don't align else/end with if statements that come after =
+Lint/EndAlignment:
+  AlignWith: variable

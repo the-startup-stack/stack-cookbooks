@@ -1,0 +1,88 @@
+{
+  "name": "hipsnip-s3cmd",
+  "description": "Installs/Configures s3cmd for a given set of users",
+  "long_description": "Description [![Build Status](https://travis-ci.org/hipsnip-cookbooks/s3cmd.png)](https://travis-ci.org/hipsnip-cookbooks/s3cmd)\n===========\nA simple recipe for installing the s3cmd tool using the default package manager on the system.\nIt then creates configuration files for the list of users defined in the attributes (see below).\n\n\nRequirements\n============\nA system with the \"s3cmd\" package available. Tested on Ubuntu 12.04 with Chef `10.18` and `11.4`.\nAssumed to work on other Debian-based distros as well.\n\n\nAttributes\n==========\n\n    ['s3cmd']['users'] = The list of Users to create the \".s3cfg\" file for (defaults to [\"root\"])\n    ['s3cmd']['bucket_location'] = The S3 zone for the buckets - defaults to \"EU\"\n    ['s3cmd']['access_key'] = AWS access key\n    ['s3cmd']['secret_key'] = AWS secret key\n\nUsers that are listed, but not present on the system will be ignored.\n\n\nUsage\n=====\nMake sure you set your credentials in `['s3cmd']['access_key']` and `['s3cmd']['secret_key']`, and then include `hipsnip-s3cmd::default`\nin your run list.\n\n\nDevelopment\n============\nPlease refer to the Readme [here](https://github.com/hipsnip-cookbooks/cookbook-development/blob/master/README.md)\n\n\nLicense and Author\n==================\n\nAuthor:: Adam Borocz ([on GitHub](https://github.com/motns))\n\nCopyright:: 2013, HipSnip Ltd.\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.\n",
+  "maintainer": "HipSnip",
+  "maintainer_email": "adam@hipsnip.com",
+  "license": "Apache 2.0",
+  "platforms": {
+    "ubuntu": ">= 10.04"
+  },
+  "dependencies": {
+  },
+  "recommendations": {
+  },
+  "suggestions": {
+  },
+  "conflicting": {
+  },
+  "providing": {
+  },
+  "replacing": {
+  },
+  "attributes": {
+    "s3cmd/users": {
+      "display_name": "S3cmd Users",
+      "description": "The list of user accounts to setup s3cmd for",
+      "type": "array",
+      "default": [
+        "root"
+      ],
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "s3cmd/bucket_location": {
+      "display_name": "S3cmd Bucket Location",
+      "description": "The Amazon S3 zone we're connecting to",
+      "type": "string",
+      "default": "EU",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "s3cmd/access_key": {
+      "display_name": "AWS Access Key",
+      "description": "AWS Access Key",
+      "type": "string",
+      "default": "",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "s3cmd/secret_key": {
+      "display_name": "AWS Secret Key",
+      "description": "AWS Secret Key",
+      "type": "string",
+      "default": "",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    }
+  },
+  "groupings": {
+  },
+  "recipes": {
+  },
+  "version": "1.0.0"
+}

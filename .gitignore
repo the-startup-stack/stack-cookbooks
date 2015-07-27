@@ -1,0 +1,5 @@
+.bundle
+bundle/*
+.chef
+bin
+data_bags

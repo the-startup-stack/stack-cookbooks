@@ -1,0 +1,36 @@
+{
+  "name": "htpasswd",
+  "version": "0.2.4",
+  "description": "Provider for htpasswd",
+  "long_description": "# htpasswd [![Build Status](https://travis-ci.org/Youscribe/htpasswd-cookbook.png)](https://travis-ci.org/Youscribe/htpasswd-cookbook) [![Cookbook Version](https://img.shields.io/cookbook/v/htpasswd.svg)](https://community.opscode.com/cookbooks/htpasswd)\n\n## Description\n\nManage an htpasswd file.\nIf htpasswd exe isn't found, we install a python implementation.\n\n## Requirements\n\nWork on linux with python for build-in implementation\n\n## Resource/Provider\n\nThis cookbook includes LWRPs for managing:\n* htpasswd\n\n### htpasswd\n\n#### Actions\n\n- :add: Add a login in a htpasswd file. modify it if there is already one and create file if not found (default)\n- :overwrite: Overwrite an htpasswd file (delete file and add user).\n\n#### Attribute Parameters\n\n- package_name: file attribute. path of the htpaswwd to manage\n- user: user to create\n- password: password for the user\n\n#### Example\n\n```ruby\n# add user \"foo\" with password \"bar\" to \"/etc/nginx/htpassword\" with the default md5 type.\nhtpasswd \"/etc/nginx/htpassword\" do\n  user \"foo\"\n  password \"bar\"\nend\n\n# add user \"foo\" with password \"bar\" using sha1 as the type.\nhtpasswd \"/etc/nginx/htpassword\" do\n  user \"foo\"\n  password \"bar\"\n  type \"sha1\"\nend\n```\n",
+  "maintainer": "Guilhem Lettron",
+  "maintainer_email": "guilhem.lettron@youscribe.com",
+  "license": "Apache 2.0",
+  "platforms": {
+    "ubuntu": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "redhat": ">= 0.0.0",
+    "fedora": ">= 0.0.0"
+  },
+  "dependencies": {
+    "python": ">= 0.0.0"
+  },
+  "recommendations": {
+  },
+  "suggestions": {
+    "python": ">= 0.0.0"
+  },
+  "conflicting": {
+  },
+  "providing": {
+  },
+  "replacing": {
+  },
+  "attributes": {
+  },
+  "groupings": {
+  },
+  "recipes": {
+  }
+}
