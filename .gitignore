@@ -3,3 +3,5 @@ bundle/*
 .chef
 bin
 data_bags
+cookbooks/*
+terraform.tfstate*

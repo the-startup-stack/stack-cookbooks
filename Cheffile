@@ -3,57 +3,6 @@
 
 site "https://supermarket.getchef.com/api/v1"
 
-cookbook 'git', '~> 4.2.2'
-cookbook 'apt'
-cookbook 'chef-client'
-cookbook 'chef_handler'
-cookbook 'ebs'
-cookbook 'hostsfile', '= 2.0.0' # don't change this!
-cookbook 'iptables'
-cookbook 'java'
-cookbook 'memcached'
-cookbook 'mysql', '= 5.3.6'
-cookbook 'nginx'
-# Used for Wordpress blog
-cookbook 'php-fpm', '~> 0.7.0'
-cookbook 'php', '~> 1.5.0'
-## End wordpress support
-cookbook 'nodejs'
-cookbook 'ntp'
-cookbook 'ohai'
-cookbook 'openssh'
-cookbook 'hipsnip-solr', '~> 0.5.0'
-cookbook 'ssh_known_hosts'
-cookbook 'sysctl'
-cookbook 'ulimit'
-cookbook 'unicorn'
-cookbook 'users'
-cookbook 'vim'
-cookbook 'newrelic'
-cookbook 'python'
-cookbook 'apache2', '= 1.10.4'
-cookbook 'graphite', '= 0.4.8'
-cookbook 'statsd', git: 'git@github.com:hectcastro/chef-statsd.git'
-cookbook 'collectd', git: 'git@github.com:hectcastro/chef-collectd.git'
-cookbook 'htpasswd'
-cookbook 'sensu', '~> 2.9.0'
-cookbook 'uchiwa'
-cookbook 'aws'
-cookbook 'swap'
-cookbook 'elasticsearch'
-cookbook 'logstash'
-cookbook 'kibana', git: 'https://github.com/lusis/chef-kibana', ref: 'dbd7ee0'
-cookbook "ruby_build"
-cookbook 'rbenv', git: 'https://github.com/RiotGamesCookbooks/rbenv-cookbook'
-cookbook 'mongodb'
-cookbook 'postgresql', '~> 3.4.14'
-cookbook 'hipsnip-s3cmd', '~> 1.0.0'
-cookbook 'chef-sugar'
-cookbook 'serf', git: 'git@github.com:KensoDev/serf.git'
-cookbook 'jenkins', '~> 2.3.1'
-
-cookbook 'rvm', '~> 0.9.4'
-
-# cookbook 'postgresql',
-#   :git => 'https://github.com/findsyou/cookbooks',
-#   :ref => 'postgresql-improvements'
+cookbook 'hostsfile', '= 2.0.0'
+cookbook 'zookeeper', git: 'https://github.com/SimpleFinance/chef-zookeeper'
+cookbook 'mesos', git: 'https://github.com/everpeace/cookbook-mesos'

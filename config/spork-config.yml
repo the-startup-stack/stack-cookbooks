@@ -1,0 +1,11 @@
+default_environments:
+  - staging
+  - development
+environment_groups:
+  prod:
+    - production
+  test_group:
+    - development
+    - staging
+version_change_threshold: 2
+environment_path: "environments"
