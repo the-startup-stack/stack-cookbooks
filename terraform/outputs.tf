@@ -1,3 +1,3 @@
 output "address" {
-  value = "${aws_instance.web.public_dns}"
+  value = "${aws_instance.chef.public_dns}"
 }

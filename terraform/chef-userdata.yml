@@ -16,3 +16,6 @@ runcmd:
   - chef-server-ctl install opscode-manage
   - chef-server-ctl reconfigure
   - opscode-manage-ctl reconfigure
+  - chef-server-ctl install opscode-reporting
+  - chef-server-ctl reconfigure
+  - opscode-reporting-ctl reconfigure

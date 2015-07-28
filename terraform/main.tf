@@ -63,7 +63,7 @@ resource "aws_security_group" "cluster" {
     }
 }
 
-resource "aws_instance" "web" {
+resource "aws_instance" "chef" {
   instance_type = "m3.large"
   ami = "${lookup(var.aws_amis, var.aws_region)}"
   key_name = "${var.key_name}"
@@ -73,7 +73,7 @@ resource "aws_instance" "web" {
       Name = "chef"
   }
 
-  user_data = "${file(\"userdata.yml\")}"
+  user_data = "${file(\"chef-userdata.yml\")}"
 }
 
 resource "aws_instance" "zk1" {
