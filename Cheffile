@@ -4,5 +4,10 @@
 site "https://supermarket.getchef.com/api/v1"
 
 cookbook 'hostsfile', '= 2.0.0'
-cookbook 'zookeeper', git: 'https://github.com/SimpleFinance/chef-zookeeper'
-cookbook 'mesos', git: 'https://github.com/everpeace/cookbook-mesos'
+cookbook 'apt'
+cookbook 'ntp'
+cookbook 'ohai'
+cookbook 'openssh'
+cookbook 'ssh_known_hosts'
+cookbook 'ulimit'
+cookbook 'vim'

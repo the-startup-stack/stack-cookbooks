@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: stack-zookeeper
+# Cookbook Name:: stack-marathon
 # Recipe:: default
 #
 # Copyright 2015, The Startup Stack
@@ -23,26 +23,39 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
+include_recipe 'apt'
 
-zookeeper '3.4.6' do
-  user     'zookeeper'
-  mirror   'http://www.poolsaboveground.com/apache/zookeeper'
-  checksum '01b3938547cd620dc4c93efe07c0360411f4a66962a70500b163b59014046994'
-  action   :install
+apt_repository 'mesosphere' do
+  distribution node['lsb']['codename']
+  components ['main']
+  uri node['mesosphere']['apt']['url']
+  key node['mesosphere']['apt']['key']
+  keyserver 'keyserver.ubuntu.com'
+  action :add
 end
 
-config_hash = {
-  'initLimit' => 5,
-  'syncLimit' => 2,
-  'clientPort' => 2181,
-  'dataDir' => '/opt/zookeeper/zookeeper-3.4.6/data',
-  'tickTime' => 2000
-}
-
-zookeeper_config '/opt/zookeeper/zookeeper-3.4.6/conf/zoo.cfg' do
-  config config_hash
-  user   'zookeeper'
-  action :render
+package "mesos" do
+  action :install
 end
 
-include_recipe 'zookeeper::service'
+package "marathon" do
+  action :install
+end
+
+file '/etc/zookeeper/conf/myid' do
+  content node['mesosphere']['zookeeper']['id']
+end
+
+template "/etc/zookeeper/conf/zoo.cfg" do
+  source 'zoo.cfg.erb'
+  mode   '0755'
+  variables({
+    zookeeper_servers: node['mesosphere']['zookeeper']['servers']  
+  })
+end
+
+["zookeeper", "mesos-master", "marathon"].each do |service_name|
+  service service_name do
+    action [:enable, :restart]
+  end
+end

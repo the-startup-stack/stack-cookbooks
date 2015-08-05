@@ -2,9 +2,10 @@
   "name": "production",
   "description": "",
   "cookbook_versions": {
-    "stack-zookeeper": "= 0.1.25",
-    "stack-mesos": "= 0.1.2",
-    "stack-hosts": "= 0.1.1"
+    "stack-zookeeper": "= 0.1.29",
+    "stack-mesos": "= 0.1.7",
+    "stack-hosts": "= 0.1.1",
+    "stack-marathon": "= 0.1.10"
   },
   "json_class": "Chef::Environment",
   "chef_type": "environment",

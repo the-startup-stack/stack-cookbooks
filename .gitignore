@@ -5,3 +5,4 @@ bin
 data_bags
 cookbooks/*
 terraform.tfstate*
+tmp/*

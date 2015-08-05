@@ -14,7 +14,7 @@ resource "aws_security_group" "default" {
         cidr_blocks = ["${var.your_ip_address}/32"]
     }
 
-    # mesos
+    # Mesos web UI
     ingress {
         from_port = 5050
         to_port = 5050
@@ -29,6 +29,7 @@ resource "aws_security_group" "default" {
         protocol = "tcp"
         cidr_blocks = ["0.0.0.0/0"]
     }
+
     ingress {
         from_port = 443
         to_port = 443
@@ -76,33 +77,7 @@ resource "aws_instance" "chef" {
   user_data = "${file(\"chef-userdata.yml\")}"
 }
 
-resource "aws_instance" "zk1" {
-  instance_type = "m4.large"
-  ami = "${lookup(var.aws_amis, var.aws_region)}"
-  key_name = "${var.key_name}"
-  security_groups = ["${aws_security_group.cluster.name}", "${aws_security_group.default.name}"]
-
-  tags {
-      Name = "zk1"
-  }
-
-  user_data = "${file(\"zk-1-userdata.yml\")}"
-
-  provisioner "chef"  {
-    environment = "production"
-    run_list = ["stack-zookeeper"]
-    server_url = "https://chef.the-startup-stack.com/organizations/startupstack"
-    validation_client_name = "startupstack-validator"
-    validation_key_path = "../.chef/stack-validator.pem"
-    version = "12.4.1"
-    node_name = "zk1"
-    connection {
-        user = "ubuntu"
-    }
-  }
-}
-
-resource "aws_instance" "mesos-master" {
+resource "aws_instance" "marathon" {
   instance_type = "m4.large"
   ami = "${lookup(var.aws_amis, var.aws_region)}"
   key_name = "${var.key_name}"
@@ -113,17 +88,4 @@ resource "aws_instance" "mesos-master" {
   }
 
   user_data = "${file(\"mesos-userdata.yml\")}"
-
-  provisioner "chef"  {
-    environment = "production"
-    run_list = ["stack-hosts", "stack-mesos"]
-    server_url = "https://chef.the-startup-stack.com/organizations/startupstack"
-    validation_client_name = "startupstack-validator"
-    validation_key_path = "../.chef/stack-validator.pem"
-    version = "12.4.1"
-    node_name = "mesos-master"
-    connection {
-        user = "ubuntu"
-    }
-  }
 }
