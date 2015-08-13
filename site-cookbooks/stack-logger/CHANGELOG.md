@@ -1,5 +1,10 @@
 # Stack Logger Change Log
 
+## 1.0.9
+
+* [@KensoDev] - 2015/08/12 - htpassword syntax fix in Nginx configuration file
+
+
 ## 1.0.8
 
 * [@KensoDev] - 2015/08/12 - HTPassword now working correct since it's running

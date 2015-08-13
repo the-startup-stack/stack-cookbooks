@@ -4,7 +4,7 @@ server {
   server_name           <%= @server_name %> <%= @server_aliases.join(" ") %>;
   access_log            <%= node['nginx']['log_dir'] %>/<%= @server_name %>.access.log;
   auth_basic            "Restricted";
-  auth_basic_user_file  <%= "#{node['nginx']['dir']}/htpassword}" %>;
+  auth_basic_user_file  <%= "#{node['nginx']['dir']}/htpassword" %>;
 
   location / {
     root  <%= @kibana_dir %>;
