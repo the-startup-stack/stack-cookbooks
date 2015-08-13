@@ -46,11 +46,6 @@ include_recipe 'java'
 include_recipe 'elasticsearch'
 include_recipe 'logstash::server'
 
-htpasswd "#{node['nginx']['dir']}/htpassword" do
-  user data_bag_item('kibana', 'credentials')['user']
-  password data_bag_item('kibana', 'credentials')['password']
-end
-
 if node['kibana']['user'].empty?
   if !node['kibana']['webserver'].empty?
     webserver = node['kibana']['webserver']
@@ -76,6 +71,7 @@ kibana_install 'kibana' do
   action :create
 end
 
+
 template "#{node['kibana']['install_dir']}/current/config.js" do
   source node['kibana']['config_template']
   cookbook node['kibana']['config_cookbook']
@@ -89,9 +85,14 @@ link "#{node['kibana']['install_dir']}/current/app/dashboards/default.json" do
 end
 
 kibana_web 'kibana' do
-  template_cookbook 'logger-cookbook'
+  template_cookbook 'stack-logger'
   type node['kibana']['webserver']
   docroot "#{node['kibana']['install_dir']}/current"
   es_server node['kibana']['es_server']
   not_if { node['kibana']['webserver'].empty? }
+end
+
+htpasswd "#{node['nginx']['dir']}/htpassword" do
+  user data_bag_item('kibana', 'credentials')['user']
+  password data_bag_item('kibana', 'credentials')['password']
 end

@@ -20,10 +20,10 @@ override['elasticsearch'][:path][:logs]  = "/mnt/data-store/elasticsearch/log"
 
 override['logstash']['instance']['default']['version']            = '1.4.2'
 override['logstash']['instance']['default']['source_url']         = 'https://download.elasticsearch.org/logstash/logstash/logstash-1.4.2.tar.gz'
-override['logstash']['instance']['default']['checksum']           = 'd59ef579c7614c5df9bd69cfdce20ed371f728ff'
+override['logstash']['instance']['default']['checksum']           = 'd5be171af8d4ca966a0c731fc34f5deeee9d7631319e3660d1df99e43c5f8069'
 override['logstash']['instance']['default']['plugins_version']    = '1.4.2'
 override['logstash']['instance']['default']['plugins_source_url'] = 'https://download.elasticsearch.org/logstash/logstash/logstash-contrib-1.4.2.tar.gz'
-override['logstash']['instance']['default']['plugins_checksum']   = '9903e487c8811ba4f396cfeb29e04e2a116bfce6'
+override['logstash']['instance']['default']['plugins_checksum']   = '7497ca3614ba9122159692cc6e60ffc968219047e88de97ecc47c2bf117ba4e5'
 
 override['kibana']['file']['url']      = 'https://download.elasticsearch.org/kibana/kibana/kibana-3.1.2.tar.gz'
 override['kibana']['file']['version']  = '3.1.2' # must match version number of above
