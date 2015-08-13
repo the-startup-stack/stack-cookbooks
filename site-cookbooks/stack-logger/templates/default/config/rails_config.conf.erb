@@ -1,0 +1,23 @@
+input {
+  tcp {
+    port => "5545"
+    type => "rails"
+    codec => json {
+      charset => "UTF-8"
+    }
+  }
+}
+
+filter {
+  if [type] == 'rails' {
+    grok {
+      pattern => "<%{POSINT:syslog_pri}>%{SYSLOGTIMESTAMP:timestamp} %{SYSLOGHOST:logsource} %{SYSLOGPROG}: %{GREEDYDATA:clean_message}"
+    }
+    mutate {
+      remove => [ "message" ]
+    }
+    json {
+            source => "clean_message"
+    }
+  }
+}

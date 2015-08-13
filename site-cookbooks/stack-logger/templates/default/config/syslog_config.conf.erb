@@ -1,0 +1,24 @@
+input {
+  tcp {
+    port => "5544"
+    type => "syslog"
+  }
+}
+
+output {
+  elasticsearch {
+    host => "127.0.0.1"
+    # protocol => "http"
+  }
+}
+
+filter {
+  if [type] == 'syslog' {
+    grok {
+      match => {
+        message => "%{COMBINEDAPACHELOG}"
+        program => "nginx-access"
+      }
+    }
+  }
+}

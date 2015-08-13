@@ -11,3 +11,10 @@ cookbook 'openssh'
 cookbook 'ssh_known_hosts'
 cookbook 'ulimit'
 cookbook 'vim'
+
+cookbook 'logstash', '= 0.9.2'
+cookbook 'elasticsearch', '= 0.3.10'
+cookbook 'java', '~> 1.35.0'
+cookbook 'htpasswd', '~> 0.2.4'
+cookbook 'aws',   :git => "https://github.com/the-startup-stack/aws", :ref => "978531d511405de3872b5fe60ac52f73024b268f"
+cookbook 'kibana', git: 'https://github.com/lusis/chef-kibana', ref: 'dbd7ee0'

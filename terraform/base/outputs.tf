@@ -3,5 +3,9 @@ output "address" {
 }
 
 output "address" {
+  value = "${aws_instance.logger.public_up}"
+}
+
+output "address" {
   value = "${aws_instance.marathon.public_ip}"
 }
