@@ -95,6 +95,25 @@ resource "aws_security_group" "logger" {
     }
 }
 
+resource "aws_security_group" "sensu" {
+    name = "sensu"
+    description = "Sensu Security Group"
+
+    ingress {
+        from_port = 0
+        to_port = 65535
+        protocol = "tcp"
+        security_groups = ["${aws_security_group.cluster.id}"]
+    }
+
+    ingress {
+        from_port = 0
+        to_port = 65535
+        protocol = "udp"
+        security_groups = ["${aws_security_group.cluster.id}"]
+    }
+}
+
 resource "aws_instance" "chef" {
   instance_type = "m3.large"
   ami = "${lookup(var.aws_amis, var.aws_region)}"
@@ -121,6 +140,18 @@ resource "aws_instance" "marathon" {
   user_data = "${file(\"mesos-userdata.yml\")}"
 }
 
+resource "aws_instance" "sensu" {
+  instance_type = "m4.large"
+  ami = "${lookup(var.aws_amis, var.aws_region)}"
+  key_name = "${var.key_name}"
+  security_groups = ["${aws_security_group.cluster.name}", "${aws_security_group.external_connections.name}", "${aws_security_group.sensu.name}"]
+
+  tags {
+      Name = "sensu"
+  }
+
+  user_data = "${file(\"sensu-userdata.yml\")}"
+}
 resource "aws_instance" "logger" {
   instance_type = "m4.large"
   ami = "${lookup(var.aws_amis, var.aws_region)}"

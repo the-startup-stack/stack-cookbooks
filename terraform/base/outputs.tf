@@ -7,5 +7,9 @@ output "address" {
 }
 
 output "address" {
+  value = "${aws_instance.sensu.public_up}"
+}
+
+output "address" {
   value = "${aws_instance.marathon.public_ip}"
 }
