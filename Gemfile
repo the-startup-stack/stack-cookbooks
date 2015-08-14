@@ -6,6 +6,7 @@ gem "librarian-chef"
 # testing sanity
 gem "foodcritic"
 gem "health_inspector"
+gem "test-kitchen"
 
 # more control over cookbook versions and node environments
 gem "knife-spork"

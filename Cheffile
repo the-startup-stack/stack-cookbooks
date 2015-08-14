@@ -18,3 +18,7 @@ cookbook 'java', '~> 1.35.0'
 cookbook 'htpasswd', '~> 0.2.4'
 cookbook 'aws',   :git => "https://github.com/the-startup-stack/aws", :ref => "978531d511405de3872b5fe60ac52f73024b268f"
 cookbook 'kibana', git: 'https://github.com/lusis/chef-kibana', ref: 'dbd7ee0'
+
+cookbook 'git', '~> 4.2.2'
+cookbook 'sensu', '~> 2.9.0'
+cookbook 'uchiwa'
