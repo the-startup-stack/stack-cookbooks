@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: stack-hosts
+# Cookbook Name:: stack-sensu
 # Recipe:: default
 #
 # Copyright 2015, The Startup Stack
@@ -23,34 +23,3 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
-#
-
-nodes = []
-
-execute "Copy hosts file to tmp dir" do
-  command "cp /etc/hosts /tmp/hostfile-#{Time.now.strftime('%m-%d-%y')}"
-end
-
-execute "Clean all previous chef entried" do
-  command "sed -i '/# @6/d' /etc/hosts"
-end
-
-if Chef::Config[:solo]
-  Chef::Log.warn("This recipe uses search. Chef Solo does not support search.")
-else
-  nodes = search(:node, '*:*')
-end
-
-nodes.each do |n|
-  if node['fqdn'] != n['fqdn'] && n['ipaddress']
-    hostsfile_entry n['ipaddress'] do
-      hostname n['fqdn']
-      aliases  [ n['hostname'], n['fqdn'].gsub('www.', '') ]
-    end
-  else
-    hostsfile_entry '127.0.1.1' do
-      hostname node['fqdn']
-      aliases  [ node['hostname'] ]
-    end
-  end
-end

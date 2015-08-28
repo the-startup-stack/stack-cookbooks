@@ -11,12 +11,12 @@ default['logger']['mount_point'] = '/mnt'
 
 override['java']['jdk_version'] = '7'
 
-override['elasticsearch'][:version]      = "1.4.1"
-override['elasticsearch'][:filename]     = "elasticsearch-#{node.elasticsearch[:version]}.tar.gz"
-override['elasticsearch'][:download_url] = [node.elasticsearch[:host], node.elasticsearch[:repository], node.elasticsearch[:filename]].join('/')
-override['elasticsearch'][:path][:conf]  = "/usr/local/etc/elasticsearch"
-override['elasticsearch'][:path][:data]  = "/mnt/data-store/elasticsearch/data"
-override['elasticsearch'][:path][:logs]  = "/mnt/data-store/elasticsearch/log"
+override['elasticsearch']['version']      = "1.4.1"
+override['elasticsearch']['filename']     = "elasticsearch-#{node['elasticsearch']['version']}.tar.gz"
+override['elasticsearch']['download_url'] = [node['elasticsearch']['host'], node['elasticsearch']['repository'], node['elasticsearch']['filename']].join('/')
+override['elasticsearch']['path']['conf']  = "/usr/local/etc/elasticsearch"
+override['elasticsearch']['path']['data']  = "/mnt/data-store/elasticsearch/data"
+override['elasticsearch']['path']['logs']  = "/mnt/data-store/elasticsearch/log"
 
 override['logstash']['instance']['default']['version']            = '1.4.2'
 override['logstash']['instance']['default']['source_url']         = 'https://download.elasticsearch.org/logstash/logstash/logstash-1.4.2.tar.gz'
