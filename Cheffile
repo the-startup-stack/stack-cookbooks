@@ -22,3 +22,7 @@ cookbook 'kibana', git: 'https://github.com/lusis/chef-kibana', ref: 'dbd7ee0'
 cookbook 'git', '~> 4.2.2'
 cookbook 'sensu', '~> 2.9.0'
 cookbook 'uchiwa'
+
+cookbook 'graphite', '= 0.4.8'
+cookbook 'statsd', git: 'git@github.com:hectcastro/chef-statsd.git'
+cookbook 'collectd', git: 'git@github.com:hectcastro/chef-collectd.git'

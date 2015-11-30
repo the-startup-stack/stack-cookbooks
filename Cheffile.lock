@@ -15,6 +15,7 @@ SITE
       rsyslog (>= 0.0.0)
     build-essential (2.2.3)
     chef_handler (1.2.0)
+    compat_resource (12.5.14)
     dmg (2.2.2)
     elasticsearch (0.3.10)
       ark (>= 0.2.4)
@@ -29,6 +30,13 @@ SITE
       dmg (>= 0.0.0)
       windows (>= 0.0.0)
       yum-epel (>= 0.0.0)
+    graphite (0.4.8)
+      apache2 (>= 0.0.0)
+      memcached (>= 0.0.0)
+      python (>= 0.0.0)
+      runit (~> 1.0)
+    homebrew (1.13.0)
+      build-essential (>= 2.1.2)
     hostsfile (2.0.0)
     htpasswd (0.2.4)
       python (>= 0.0.0)
@@ -48,6 +56,10 @@ SITE
       python (>= 0.0.0)
       runit (>= 0.0.0)
       yum (>= 0.0.0)
+    memcached (2.0.2)
+      compat_resource (>= 0.0.0)
+      runit (~> 1.0)
+      yum-epel (>= 0.0.0)
     nginx (2.7.6)
       apt (~> 2.2)
       bluepill (~> 2.3)
@@ -55,6 +67,12 @@ SITE
       ohai (~> 2.0)
       runit (~> 1.2)
       yum-epel (~> 0.3)
+    nodejs (2.4.2)
+      apt (>= 0.0.0)
+      ark (>= 0.0.0)
+      build-essential (>= 0.0.0)
+      homebrew (>= 0.0.0)
+      yum-epel (>= 0.0.0)
     ntp (1.8.6)
     ohai (2.0.1)
     openssh (1.5.2)
@@ -96,6 +114,25 @@ SITE
       yum (~> 3.0)
 
 GIT
+  remote: git@github.com:hectcastro/chef-collectd.git
+  ref: master
+  sha: 2d06eac49fa305e798ce6381a921cbee10e473d5
+  specs:
+    collectd (2.0.0)
+      build-essential (>= 0.0.0)
+      yum-epel (>= 0.0.0)
+
+GIT
+  remote: git@github.com:hectcastro/chef-statsd.git
+  ref: master
+  sha: 385dd15e38fdd29517a8277a91b5f782c55b51d8
+  specs:
+    statsd (1.1.12)
+      git (>= 0.0.0)
+      nodejs (>= 0.0.0)
+      runit (>= 0.0.0)
+
+GIT
   remote: https://github.com/lusis/chef-kibana
   ref: dbd7ee0
   sha: dbd7ee079337a7e19aaf61a1f461882b63c95eef
@@ -117,8 +154,10 @@ GIT
 DEPENDENCIES
   apt (>= 0)
   aws (>= 0)
+  collectd (>= 0)
   elasticsearch (= 0.3.10)
   git (~> 4.2.2)
+  graphite (= 0.4.8)
   hostsfile (= 2.0.0)
   htpasswd (~> 0.2.4)
   java (~> 1.35.0)
@@ -129,6 +168,7 @@ DEPENDENCIES
   openssh (>= 0)
   sensu (~> 2.9.0)
   ssh_known_hosts (>= 0)
+  statsd (>= 0)
   uchiwa (>= 0)
   ulimit (>= 0)
   vim (>= 0)
