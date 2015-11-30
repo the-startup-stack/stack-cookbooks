@@ -1,0 +1,19 @@
+---
+test_base_path: ~/Code/open_source/the-startup-stack-cookbooks/spec/integrations
+
+driver:
+  name: vagrant
+  test_base_path: ~/Code/open_source/the-startup-stack-cookbooks/spec/integrations
+
+provisioner:
+  name: chef_solo
+
+platforms:
+  - name: ubuntu-14.04
+
+suites:
+  - name: default
+    sudo: true
+    run_list:
+      - role[base]
+    attributes:
