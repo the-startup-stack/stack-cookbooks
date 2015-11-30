@@ -61,6 +61,8 @@ GEM
     highline (1.7.2)
     ipaddress (0.8.0)
     json (1.8.1)
+    kitchen-vagrant (0.18.0)
+      test-kitchen (~> 1.4)
     knife-container (0.2.4)
       chef (>= 11.0)
       json (>= 1.4.4, <= 1.8.1)
@@ -178,6 +180,7 @@ DEPENDENCIES
   chef (~> 12.4.1)
   foodcritic
   health_inspector
+  kitchen-vagrant
   knife-container
   knife-flip
   knife-spork
