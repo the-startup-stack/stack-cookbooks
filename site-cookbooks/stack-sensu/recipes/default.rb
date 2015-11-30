@@ -23,3 +23,15 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
+
+include_recipe 'sensu'
+include_recipe "#{cookbook_name}::plugins"
+
+sensu_subscription = node["sensu"]["subscriptions"] || []
+
+sensu_client node.name do
+  address node.ipaddress
+  subscriptions node.roles + ["all"] + sensu_subscription + [node.name, node['stack_role'], node.chef_environment].compact
+end
+
+include_recipe 'sensu::client_service'

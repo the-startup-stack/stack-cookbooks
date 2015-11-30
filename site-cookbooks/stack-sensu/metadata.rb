@@ -4,4 +4,8 @@ maintainer_email 'avi@avi.io'
 license          'MIT'
 description      'Installs/Configures stack-sensu'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version          '0.1.0'
+version          '0.1.10'
+
+depends "sensu"
+depends "uchiwa"
+depends "git", "~> 4.2.2"

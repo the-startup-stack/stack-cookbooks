@@ -1,5 +1,5 @@
-stack-sensu Cookbook
-====================
+gogobot-sensu Cookbook
+======================
 TODO: Enter the cookbook description here.
 
 e.g.
@@ -11,14 +11,14 @@ TODO: List your cookbook requirements. Be sure to include any requirements this 
 
 e.g.
 #### packages
-- `toaster` - stack-sensu needs toaster to brown your bagel.
+- `toaster` - gogobot-sensu needs toaster to brown your bagel.
 
 Attributes
 ----------
-TODO: List your cookbook attributes here.
+TODO: List you cookbook attributes here.
 
 e.g.
-#### stack-sensu::default
+#### gogobot-sensu::default
 <table>
   <tr>
     <th>Key</th>
@@ -27,7 +27,7 @@ e.g.
     <th>Default</th>
   </tr>
   <tr>
-    <td><tt>['stack-sensu']['bacon']</tt></td>
+    <td><tt>['gogobot-sensu']['bacon']</tt></td>
     <td>Boolean</td>
     <td>whether to include bacon</td>
     <td><tt>true</tt></td>
@@ -36,17 +36,17 @@ e.g.
 
 Usage
 -----
-#### stack-sensu::default
+#### gogobot-sensu::default
 TODO: Write usage instructions for each cookbook.
 
 e.g.
-Just include `stack-sensu` in your node's `run_list`:
+Just include `gogobot-sensu` in your node's `run_list`:
 
 ```json
 {
   "name":"my_node",
   "run_list": [
-    "recipe[stack-sensu]"
+    "recipe[gogobot-sensu]"
   ]
 }
 ```
