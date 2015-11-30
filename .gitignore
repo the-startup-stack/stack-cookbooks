@@ -5,4 +5,6 @@ bin
 data_bags
 cookbooks/*
 terraform.tfstate*
+tmp/*.kitchen/
+.kitchen.local.yml
 tmp/*
