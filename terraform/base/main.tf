@@ -210,3 +210,5 @@ resource "aws_instance" "sensu" {
 
   user_data = "${file(\"sensu-userdata.yml\")}"
 }
+
+

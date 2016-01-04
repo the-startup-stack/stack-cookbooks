@@ -1,0 +1,8 @@
+$ModLoad imfile   # Load the imfile input module
+
+$InputFileName <%= @access_log_location %>
+$InputFileTag <%= @syslog_tag %>:
+$InputFileStateFile state-<%= @syslog_tag %>
+$InputRunFileMonitor
+:syslogtag , isequal , "<%= @syslog_tag %>:" @@<%= @logstash_server_name %>:<%= @logstash_port %>
+& ~

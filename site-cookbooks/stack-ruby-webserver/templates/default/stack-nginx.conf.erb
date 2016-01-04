@@ -1,0 +1,104 @@
+upstream stack-upstream {
+  server unix:<%= @socket_location %> fail_timeout=0;
+}
+
+server {
+  listen 80 default;
+
+  location / {
+    return 301 $scheme://<%= @web_dynamic.first %>$request_uri;
+  }
+
+  # --- this affects ELB health checks :/
+  location /test/health_check {
+    proxy_pass http://localhost/test/health_check;
+    access_log off;
+  }
+
+  location /nginx_status {
+    stub_status on;
+    access_log off;
+    allow 127.0.0.1;
+    deny all;
+  }
+}
+
+# rewrite_log on;
+log_format logstash '$http_host '
+                    '$remote_addr [$time_local] '
+                    '"$request" $status $body_bytes_sent '
+                    '"$http_referer" "$http_user_agent" '
+                    '$request_time '
+                    '$upstream_response_time';
+
+server {
+  client_max_body_size 30M;
+  listen 80;
+  server_name <%= @web_dynamic.join(" ") %> <%= @web_cdn %> localhost;
+  # Fixes the bug with big cookie or headers
+  large_client_header_buffers 4 32k;
+
+
+  server_tokens off;
+  root "<%= @path %>/current/public";
+
+  charset utf-8;
+
+  access_log <%= @path %>/shared/log/stack_nginx_access.log logstash buffer=32k;
+  error_log  <%= @path %>/shared/log/stack_nginx_errors.log notice;
+
+  location ~ ^/v/[A-Za-z0-9_-]+/images/ { rewrite ^/v/[A-Za-z0-9_-]+/images/(.*) /images/$1 break; }
+
+  location /v/ { expires max; }
+
+  location / {
+    try_files $uri @stack-backend;
+  }
+
+  location @stack-backend {
+    proxy_pass_request_headers on;
+    proxy_redirect off;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Request-Start  "t=${msec}000"; # for NewRelic
+    proxy_pass http://stack-upstream;
+    proxy_hide_header X-Powered-By;
+    proxy_hide_header X-Runtime;
+    proxy_hide_header X-Rack-Cache;
+    proxy_hide_header X-Request-Id;
+    proxy_buffering off;
+  }
+
+}
+
+server {
+  listen 80;
+  server_name <%= @web_static %> static_file_server;
+
+  server_tokens off;
+  root "<%= @path %>/current/public";
+
+  location ~ ^/v/[A-Za-z0-9_-]+/images/ { rewrite ^/v/[A-Za-z0-9_-]+/images/(.*) /images/$1 break; }
+
+  access_log <%= @path %>/shared/log/stack_nginx_static_access.log logstash buffer=32k;
+  error_log  <%= @path %>/shared/log/stack_nginx_static_errors.log notice;
+
+  location / {
+    try_files $uri =404;
+  }
+
+  # This is used to at as the base for the counter
+  # we just serve a 1px on 1px empty gif
+  # We make sure it's never cached on the browser
+  #
+  location /stats {
+    try_files /images/impression_stats.gif =404;
+    expires -1;
+    if_modified_since off;
+    add_header Last-Modified "";
+  }
+
+  location /v/ { expires max; }
+  # location /images { expires max; }
+}

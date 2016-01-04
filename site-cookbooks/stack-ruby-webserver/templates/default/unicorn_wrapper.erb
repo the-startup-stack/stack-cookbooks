@@ -1,0 +1,5 @@
+#!/bin/bash
+
+source /usr/local/rvm/scripts/rvm
+rvm use <%= @ruby_version %> &> /dev/null
+exec <%= @unicorn_bundle_wrap %> "$@"

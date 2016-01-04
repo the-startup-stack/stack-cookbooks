@@ -26,3 +26,5 @@ cookbook 'uchiwa'
 cookbook 'graphite', '= 0.4.8'
 cookbook 'statsd', git: 'git@github.com:hectcastro/chef-statsd.git'
 cookbook 'collectd', git: 'git@github.com:hectcastro/chef-collectd.git'
+
+cookbook 'rvm', '~> 0.9.4'

@@ -1,0 +1,65 @@
+#!/bin/bash
+### BEGIN INIT INFO
+# Provides:          unicorn
+# Required-Start:    $remote_fs $syslog
+# Required-Stop:     $remote_fs $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Start unicorn at boot time
+# Description:       Enable rails service provided by unicorn
+### END INIT INFO
+
+<%# https://wiki.debian.org/LSBInitScripts %>
+
+RETVAL=0
+PIDFILE=/var/run/god.pid
+LOGFILE=/var/log/god.log
+GODCMD="bundle exec god"
+
+source /usr/local/rvm/scripts/rvm
+source /etc/profile.d/rails_env.sh
+
+rvm use <%= @ruby_version %> &> /dev/null
+cd <%= @shared_god_root %>
+
+case "$1" in
+    terminate)
+      $GODCMD terminate
+      RETVAL=0
+      ;;
+    start)
+      mkdir -p <%= @socket_folder %>
+      chown <%= @deploy_owner %> <%= @socket_folder %>
+      service nginx restart
+      $GODCMD -P $PIDFILE -l $LOGFILE -c <%= @rails_root %>/god/unicorn.god start unicorn_master
+      RETVAL=$?
+      ;;
+    stop)
+      $GODCMD stop unicorn_master
+      sleep 3
+      pkill -f 'god/unicorn.god'
+      RETVAL=$?
+      ;;
+    restart)
+      output=`service unicorn status`
+      if echo $output | grep 'unicorn_master'
+        then
+          echo 'unicorn is running, restarting...'
+          $GODCMD restart unicorn_master
+        else
+          echo 'unicorn is not running, starting it up...'
+          service unicorn start
+      fi
+      RETVAL=$?
+      ;;
+    status)
+      $GODCMD status unicorn_master
+      RETVAL=$?
+      ;;
+    *)
+      echo "Usage: unicorn {start|stop|restart|status}"
+      exit 1
+  ;;
+esac
+
+exit $RETVAL
