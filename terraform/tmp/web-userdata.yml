@@ -1,0 +1,16 @@
+chef:
+  install_type: "omnibus"
+  omnibus_url: "https://www.opscode.com/chef/install.sh"
+  force_install: false
+  server_url: "https://api.chef.io/organizations/tikal-kenso"
+  node_name: "web-${count.index+1}"
+  run_list:
+    - role[base]
+    - role[web]
+  validation_key: |
+${module.common.validation_key}
+  validation_name: "cloudinit-validator"
+output: {all: '| tee -a /var/log/cloud-init-output.log'}
+runcmd:
+  - while [ ! -e /usr/bin/chef-client ]; do sleep 2; done; chef-client
+disable_ec2_metadata: true
