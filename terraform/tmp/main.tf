@@ -6,50 +6,6 @@ resource "aws_vpc" "default" {
   cidr_block = "10.0.0.0/16"
 }
 
-resource "aws_security_group" "external_connections" {
-  name        = "external_connection"
-  description = "External Connections Security Group"
-  vpc_id      = "${aws_vpc.default.id}"
-
-  # SSH into machines
-  ingress {
-    from_port = 22
-    to_port = 22
-    protocol = "tcp"
-    cidr_blocks = ["${var.your_ip_address}/32"]
-  }
-
-  # Mesos web UI
-  ingress {
-    from_port   = 5050
-    to_port     = 5050
-    protocol    = "tcp"
-    cidr_blocks = ["${var.your_ip_address}/32"]
-  }
-
-  # HTTP access from anywhere
-  ingress {
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  ingress {
-    from_port   = 443
-    to_port     = 443
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  egress {
-    from_port   = 0
-    to_port     = s
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-}
-
 resource "aws_security_group" "cluster" {
   name        = "cluster"
   description = "Cluster Security Group"
@@ -70,18 +26,6 @@ resource "aws_security_group" "cluster" {
   }
 }
 
-resource "aws_security_group" "chef" {
-    name        = "chef"
-    description = "Chef Security Group"
-    vpc_id      = "${aws_vpc.default.id}"
-
-    egress {
-        from_port   = 0
-        to_port     = 0
-        protocol    = "-1"
-        cidr_blocks = ["0.0.0.0/0"]
-    }
-}
 
 resource "aws_security_group" "logger" {
     name        = "logger"
@@ -141,19 +85,6 @@ resource "aws_security_group" "sensu" {
         protocol        = "udp"
         security_groups = ["${aws_security_group.cluster.id}"]
     }
-}
-
-resource "aws_instance" "chef" {
-  instance_type   = "m3.large"
-  ami             = "${lookup(var.aws_amis, var.aws_region)}"
-  key_name        = "${var.key_name}"
-  security_groups = ["${aws_security_group.external_connections.name}", "${aws_security_group.chef.name}"]
-
-  tags {
-      Name = "chef"
-  }
-
-  user_data = "${file(\"chef-userdata.yml\")}"
 }
 
 resource "aws_instance" "marathon" {

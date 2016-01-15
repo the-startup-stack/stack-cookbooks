@@ -1,5 +1,10 @@
 module "web_base" {
-  source = "/Users/avitzurel/Code/open_source/the-startup-stack-cookbooks/terraform/web_base"
+  source = "../web_base"
+  your_ip_address = "${var.your_ip_address}"
+}
+
+module "base" {
+  source = "../base"
   your_ip_address = "${var.your_ip_address}"
 }
 
@@ -11,7 +16,7 @@ resource "aws_elb" "web" {
   name = "terraform-example-elb"
 
   subnets         = ["${module.web_base.default_subnet_id}"]
-  security_groups = ["${module.web_base.default_elb_security_group_id}", "${module.web_base.external_connections_security_group_id}"]
+  security_groups = ["${module.web_base.default_elb_security_group_id}", "${module.base.external_connections_security_group_id}"]
   instances       = ["${aws_instance.web.id}"]
 
   listener {
@@ -20,7 +25,6 @@ resource "aws_elb" "web" {
     lb_port           = 80
     lb_protocol       = "http"
   }
-
 }
 
 resource "aws_instance" "web" {
