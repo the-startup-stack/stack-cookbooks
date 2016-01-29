@@ -10,4 +10,4 @@ tmp/*.kitchen/
 .kitchen.local.yml
 tmp/*
 .librarian
-.terraform/*
+terraform/*/.terraform/*
