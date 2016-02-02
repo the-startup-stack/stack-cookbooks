@@ -1,0 +1,30 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# All Vagrant configuration is done below. The "2" in Vagrant.configure
+# configures the configuration version (we support older styles for
+# backwards compatibility). Please don't change it unless you know what
+# you're doing.
+Vagrant.configure(2) do |config|
+  config.vm.box = "centos/7"
+
+  config.vm.provider :virtualbox do |vbox|
+    vbox.name = "mongodb-test-vbox"
+    vbox.customize ["modifyvm", :id, "--memory", 1024]
+    vbox.customize ["modifyvm", :id, "--cpus", 2]
+    vbox.customize ["modifyvm", :id, "--cpuhotplug", "on"]
+    vbox.customize ["modifyvm", :id, "--cpuexecutioncap", 75]
+    vbox.customize ["modifyvm", :id, "--pae", "on"]
+    vbox.customize ["modifyvm", :id, "--ioapic", "on"]
+    vbox.customize ["modifyvm", :id, "--acpi", "off"]
+    vbox.customize ["modifyvm", :id, "--hwvirtex", "on"]
+    vbox.customize ["modifyvm", :id, "--vrde", "off"]
+    vbox.customize ["setextradata", :id, "VBoxInternal/Devices/VMMDev/0/Config/GetHostTimeDisabled", "1"] # don't mess with guest clock!
+  end
+
+  config.vm.define :mongodb_startup_stack do |v|
+    v.vm.hostname = "mongodb-#{Etc.getlogin}.vagrant"
+    v.vm.network :private_network, ip: "192.168.99.55"
+    v.vm.provision :shell, inline: "curl -s -L https://www.opscode.com/chef/install.sh | bash >& /dev/null"
+  end
+end

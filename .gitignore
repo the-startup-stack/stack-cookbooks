@@ -12,3 +12,4 @@ tmp/*
 .librarian
 terraform/*/.terraform/*
 mongodb_data/*
+.kitchen/*

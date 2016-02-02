@@ -28,3 +28,6 @@ cookbook 'statsd', git: 'git@github.com:hectcastro/chef-statsd.git'
 cookbook 'collectd', git: 'git@github.com:hectcastro/chef-collectd.git'
 
 cookbook 'rvm', '~> 0.9.4'
+
+cookbook 'chef-sugar'
+cookbook 'docker', '~> 2.0'

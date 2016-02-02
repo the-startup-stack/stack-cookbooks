@@ -1,19 +1,20 @@
 ---
-test_base_path: ~/Code/open_source/the-startup-stack-cookbooks/spec/integrations
-
 driver:
   name: vagrant
-  test_base_path: ~/Code/open_source/the-startup-stack-cookbooks/spec/integrations
 
 provisioner:
   name: chef_solo
 
 platforms:
-  - name: ubuntu-14.04
+  - name: centos-7.1
+    driver_config:
+      box: opscode-centos-7.1
+      box_url: http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_centos-7.1_chef-provisionerless.box
 
 suites:
-  - name: default
+  - name: mongodb
+    data_bags_path: "test/integration/data_bags"
     sudo: true
     run_list:
-      - role[base]
+      - role[mongodb_single]
     attributes:

@@ -2,12 +2,6 @@
   "name": "production",
   "description": "",
   "cookbook_versions": {
-    "stack-zookeeper": "= 0.1.29",
-    "stack-mesos": "= 0.1.7",
-    "stack-hosts": "= 0.1.1",
-    "stack-marathon": "= 0.1.10",
-    "stack-base": "= 1.0.0",
-    "stack-logger": "= 1.0.9"
   },
   "json_class": "Chef::Environment",
   "chef_type": "environment",
