@@ -16,6 +16,5 @@ suites:
     data_bags_path: "test/integration/data_bags"
     sudo: true
     run_list:
-      - role[base]
       - role[mongodb_single]
     attributes:
