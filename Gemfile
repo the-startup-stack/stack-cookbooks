@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-gem 'chef', '~> 12.4.1'
+gem 'chef', '~> 12.6'
 gem "librarian-chef"
 
 # testing sanity

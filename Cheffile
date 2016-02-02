@@ -31,3 +31,6 @@ cookbook 'rvm', '~> 0.9.4'
 
 cookbook 'chef-sugar'
 cookbook 'docker', '~> 2.0'
+
+cookbook 'users', '~> 1.7.0'
+cookbook 'mysql'
