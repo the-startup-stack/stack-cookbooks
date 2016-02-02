@@ -13,3 +13,4 @@ tmp/*
 terraform/*/.terraform/*
 mongodb_data/*
 .kitchen/*
+.vagrant/*
