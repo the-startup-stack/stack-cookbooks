@@ -8,6 +8,7 @@ resource "aws_instance" "marathon" {
   ami             = "${lookup(var.aws_amis, var.aws_region)}"
   key_name        = "${var.key_name}"
   vpc_security_group_ids = ["${module.base.cluster_security_group_id}", "${module.base.default_security_group_id}"]
+  subnet_id  = "${module.base.default_subnet_id}"
 
   tags {
       Name = "mesos"

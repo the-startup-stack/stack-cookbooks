@@ -1,8 +1,3 @@
-module "web_base" {
-  source = "../web_base"
-  your_ip_address = "${var.your_ip_address}"
-}
-
 module "base" {
   source = "../base"
   your_ip_address = "${var.your_ip_address}"
