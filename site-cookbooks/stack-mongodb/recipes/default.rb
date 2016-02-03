@@ -62,4 +62,5 @@ docker_container 'mongodb' do
   repo 'mongo'
   tag 'latest'
   volumes [ "#{node['mongodb']['data_dir']}:/data/db" ]
+  port "27017:27017"
 end
