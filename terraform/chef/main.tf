@@ -29,3 +29,8 @@ resource "aws_instance" "chef" {
 
   user_data = "${file(\"chef-userdata.yml\")}"
 }
+
+resource "aws_eip" "chef" {
+    instance = "${aws_instance.chef.id}"
+    vpc = true
+}
