@@ -1,0 +1,7 @@
+chef_username = "stackadmin"
+chef_user = "Stack Admin"
+chef_password = "SomeVerySecurePassword"
+chef_user_email = "ops@the-startup-stack.com"
+chef_organization_id = "thestartupstack"
+chef_organization_name = "The Startup Stack"
+domain_name = "the-startup-stack.com"
