@@ -15,3 +15,5 @@ terraform/*/.terraform/*
 mongodb_data/*
 .kitchen/*
 terraform.tfvars
+*.pem
+*.key
