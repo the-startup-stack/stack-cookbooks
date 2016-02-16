@@ -17,3 +17,4 @@ mongodb_data/*
 terraform.tfvars
 *.pem
 *.key
+environments/*.json
