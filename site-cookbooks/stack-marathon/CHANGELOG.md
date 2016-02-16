@@ -1,13 +1,6 @@
-stack-marathon CHANGELOG
-========================
+# Stack Marathon Changelog
 
-This file is used to list changes made in each version of the stack-marathon cookbook.
+## 0.1.19
 
-0.1.0
------
-- [your_name] - Initial release of stack-marathon
-
-- - -
-Check the [Markdown Syntax Guide](http://daringfireball.net/projects/markdown/syntax) for help with Markdown.
-
-The [Github Flavored Markdown page](http://github.github.com/github-flavored-markdown/) describes the differences between markdown on github and standard markdown.
+* [@KensoDev] - 2016/02/15 - Many changes around supporting new releases of the
+  packages including Java dependencies (new marathon release).

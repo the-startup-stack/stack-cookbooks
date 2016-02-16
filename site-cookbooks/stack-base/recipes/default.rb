@@ -57,7 +57,7 @@ end
 end
 
 # install useful packages
-%w{ curl htop lsof sysstat tmux mailutils vim}.each do |pkg|
+%w{ curl htop lsof sysstat tmux mailutils vim }.each do |pkg|
   package pkg
 end
 

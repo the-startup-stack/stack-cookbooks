@@ -1,8 +1,8 @@
 #
-# Cookbook Name:: stack-marathon
+# Cookbook Name:: stack-java
 # Recipe:: default
 #
-# Copyright 2015, The Startup Stack
+# Copyright 2016, The Startup Stack
 #
 # Permission is hereby granted, free of charge, to any person obtaining
 # a copy of this software and associated documentation files (the
@@ -23,40 +23,4 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
-include_recipe 'apt'
-include_recipe 'stack-java'
-
-apt_repository 'mesosphere' do
-  distribution node['lsb']['codename']
-  components ['main']
-  uri node['mesosphere']['apt']['url']
-  key node['mesosphere']['apt']['key']
-  keyserver 'keyserver.ubuntu.com'
-  action :add
-end
-
-package "mesos" do
-  action :install
-end
-
-package "marathon" do
-  action :install
-end
-
-file '/etc/zookeeper/conf/myid' do
-  content node['mesosphere']['zookeeper']['id']
-end
-
-template "/etc/zookeeper/conf/zoo.cfg" do
-  source 'zoo.cfg.erb'
-  mode   '0755'
-  variables({
-    zookeeper_servers: node['mesosphere']['zookeeper']['servers']
-  })
-end
-
-["zookeeper", "mesos-master", "marathon"].each do |service_name|
-  service service_name do
-    action [:enable, :restart]
-  end
-end
+include_recipe 'java::oracle'

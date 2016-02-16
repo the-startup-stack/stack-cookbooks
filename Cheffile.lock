@@ -178,6 +178,7 @@ DEPENDENCIES
   graphite (= 0.4.8)
   hostsfile (= 2.0.0)
   htpasswd (~> 0.2.4)
+  java (>= 0)
   java (~> 1.35.0)
   kibana (>= 0)
   logstash (= 0.9.2)
