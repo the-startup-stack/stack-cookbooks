@@ -5,3 +5,5 @@ chef_user_email = "ops@the-startup-stack.com"
 chef_organization_id = "thestartupstack"
 chef_organization_name = "The Startup Stack"
 domain_name = "the-startup-stack.com"
+certificate_file = "chef.the-startup-stack.com.pem
+certificate_key = "chef.the-startup-stack.com.key"

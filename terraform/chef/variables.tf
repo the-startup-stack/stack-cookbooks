@@ -44,3 +44,11 @@ variable "chef_organization_name" {
 variable "domain_name" {
   description = "Your domain name (without the www). eg: 'your-domain.com'"
 }
+
+variable "certificate_file" {
+  description = "SSL certificate file provided by your DNS or certificate marketplace. eg: your-certificate.pem"
+}
+
+variable "certificate_key" {
+  description = "SSL key file provided by your DNS or certificate marketplace. eg: your-certificate.key"
+}

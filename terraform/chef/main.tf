@@ -16,18 +16,25 @@ resource "aws_security_group" "chef" {
     }
 }
 
-resource "template_file" "chef_userdata" {
-    template = "${file("chef_userdata.tpl")}"
+resource "template_file" "chef_bootstrap" {
+  template = "${file("chef_bootstrap.tpl")}"
 
-    vars {
-      domain_name = "${var.domain_name}"
-      chef_username = "${var.chef_username}"
-      chef_user = "${var.chef_user}"
-      chef_password = "${var.chef_password}"
-      chef_user_email = "${var.chef_user_email}"
-      chef_organization_id = "${var.chef_organization_id}"
-      chef_organization_name = "${var.chef_organization_name}"
-    }
+  vars {
+    chef_username = "${var.chef_username}"
+    chef_user = "${var.chef_user}"
+    chef_password = "${var.chef_password}"
+    chef_user_email = "${var.chef_user_email}"
+    chef_organization_id = "${var.chef_organization_id}"
+    chef_organization_name = "${var.chef_organization_name}"
+  }
+}
+
+resource "template_file" "chef_userdata" {
+  template = "${file("chef_userdata.tpl")}"
+
+  vars {
+    domain_name = "${var.domain_name}"
+  }
 }
 
 resource "aws_instance" "chef" {
@@ -41,7 +48,35 @@ resource "aws_instance" "chef" {
       Name = "chef"
   }
 
-  user_data = "#{template_file.chef_userdata.rendered}"
+  provisioner "file" {
+    source = "${var.certificate_file}"
+    destination = "/tmp/server_certificate.pem"
+    connection {
+      user = "ubuntu"
+    }
+  }
+
+  provisioner "file" {
+    source = "${var.certificate_key}"
+    destination = "/tmp/server_certificate.key"
+    connection {
+      user = "ubuntu"
+    }
+  }
+
+  provisioner "remote-exec" {
+    connection {
+      user = "ubuntu"
+    }
+    inline = [
+      "echo '${file("chef_certificate_configuration.tpl")}' > /tmp/chef-server.rb",
+      "echo '${template_file.chef_bootstrap.rendered}' > /tmp/bootstrap-chef-server.sh",
+      "chmod +x /tmp/bootstrap-chef-server.sh",
+      "sudo sh /tmp/bootstrap-chef-server.sh"
+    ]
+  }
+
+  user_data = "${template_file.chef_userdata.rendered}"
 }
 
 resource "aws_eip" "chef" {
