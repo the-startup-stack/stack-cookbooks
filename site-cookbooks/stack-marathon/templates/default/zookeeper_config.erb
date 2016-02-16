@@ -1,0 +1,2 @@
+<% zookeeper_servers = @zookeepers.collect { |s| "#{s}:2181" } %>
+zk://<%= zookeeper_servers.join(",") %>/mesos
