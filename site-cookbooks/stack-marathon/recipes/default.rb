@@ -35,8 +35,10 @@ apt_repository 'mesosphere' do
   action :add
 end
 
-package "mesos" do
-  action :install
+[:mesos, :marathon, :chronos].each do |package_name|
+  package package_name.to_s do
+    action :install
+  end
 end
 
 package "marathon" do
@@ -55,7 +57,7 @@ template "/etc/zookeeper/conf/zoo.cfg" do
   })
 end
 
-["zookeeper", "mesos-master", "marathon"].each do |service_name|
+["zookeeper", "mesos-master", "marathon", "chronos"].each do |service_name|
   service service_name do
     action [:enable, :restart]
   end
