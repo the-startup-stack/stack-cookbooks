@@ -18,8 +18,8 @@ chef-server-ctl reconfigure
 mkdir -p /var/opt/opscode/nginx/ca/
 mv /tmp/server_certificate.pem /var/opt/opscode/nginx/ca/chef_the_startup_stack.pem
 mv /tmp/server_certificate.key /var/opt/opscode/nginx/ca/chef_the_startup_stack.key
-chmod + x /var/opt/opscode/nginx/ca/chef_the_startup_stack.pem
-chmod + x /var/opt/opscode/nginx/ca/chef_the_startup_stack.key
+chmod +x /var/opt/opscode/nginx/ca/chef_the_startup_stack.pem
+chmod +x /var/opt/opscode/nginx/ca/chef_the_startup_stack.key
 mv /tmp/chef-server.rb /etc/opscode/chef-server.rb
 chef-server-ctl reconfigure
 echo "Finished"
