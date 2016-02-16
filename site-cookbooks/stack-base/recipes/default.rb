@@ -28,7 +28,6 @@ include_recipe 'apt'
 include_recipe 'ntp'
 include_recipe 'ohai'
 include_recipe 'ulimit'
-include_recipe 'vim'
 include_recipe 'openssh'
 
 # remove ubuntu/canonical services
@@ -58,7 +57,7 @@ end
 end
 
 # install useful packages
-%w{ curl htop lsof sysstat tmux mailutils }.each do |pkg|
+%w{ curl htop lsof sysstat tmux mailutils vim}.each do |pkg|
   package pkg
 end
 

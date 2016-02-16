@@ -118,7 +118,6 @@ SITE
       yum (>= 0.0.0)
     ulimit (0.3.3)
     users (1.7.0)
-    vim (2.0.0)
     windows (1.39.1)
       chef_handler (>= 0.0.0)
     yum (3.9.0)
@@ -193,5 +192,4 @@ DEPENDENCIES
   uchiwa (>= 0)
   ulimit (>= 0)
   users (~> 1.7.0)
-  vim (>= 0)
 

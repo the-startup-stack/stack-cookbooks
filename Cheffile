@@ -10,7 +10,6 @@ cookbook 'ohai'
 cookbook 'openssh'
 cookbook 'ssh_known_hosts'
 cookbook 'ulimit'
-cookbook 'vim'
 
 cookbook 'logstash', '= 0.9.2'
 cookbook 'elasticsearch', '= 0.3.10'
