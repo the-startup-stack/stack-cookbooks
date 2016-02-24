@@ -1,20 +1,21 @@
-variable "key_name" {
-    description = "Name of the SSH keypair to use in AWS."
-}
-
 variable "your_ip_address" {
     description = "Your IP address, being used in order to SSH into the servers"
+    default = "24.130.239.224"
 }
 
 variable "aws_region" {
     description = "AWS region to launch servers."
-    default = "us-west-2"
+    default = "us-east-1"
 }
 
 variable "aws_amis" {
     default = {
-        "us-west-2" = "ami-7f675e4f"
+        "us-east-1" = "ami-7ba59311"
     }
+}
+
+variable "key_name" {
+
 }
 
 variable "chef_username" {
@@ -43,12 +44,4 @@ variable "chef_organization_name" {
 
 variable "domain_name" {
   description = "Your domain name (without the www). eg: 'your-domain.com'"
-}
-
-variable "certificate_file" {
-  description = "SSL certificate file provided by your DNS or certificate marketplace. eg: your-certificate.pem"
-}
-
-variable "certificate_key" {
-  description = "SSL key file provided by your DNS or certificate marketplace. eg: your-certificate.key"
 }
