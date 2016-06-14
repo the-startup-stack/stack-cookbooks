@@ -22,7 +22,6 @@ end
   end
 end
 
-
 if vagrant?
   zookeeper_servers = ['192.168.88.10']
 end

@@ -25,74 +25,87 @@
 #
 include_recipe 'aws'
 
-creds = data_bag_item("aws", "main")
+attach_dir   = node['logger']['install_dir']
+logstash_dir = "/mnt/logstash"
+creds        = data_bag_item("aws", "main")
+credentials  = data_bag_item('docker', 'credentials').raw_data
+docker_repo = node['logger']['docker_repo']
 
-aws_ebs_raid 'data_volume_raid' do
-  mount_point node['logger']['mount_point']
-  disk_count node['logger']['disk_count']
-  disk_size node['logger']['disk_size']
-  level node['logger']['raid_level']
-  filesystem 'ext4'
-  disk_piops node['logger']['disk_piops']
-  disk_type "io1"
-  hvm true
-  action :auto_attach
-  aws_access_key          creds['aws_access_key_id']
-  aws_secret_access_key   creds['aws_secret_access_key']
+docker_service 'default' do
+  action [:create, :start]
 end
 
-include_recipe 'htpasswd'
-include_recipe 'java'
-include_recipe 'elasticsearch'
-include_recipe 'logstash::server'
-
-if node['kibana']['user'].empty?
-  if !node['kibana']['webserver'].empty?
-    webserver = node['kibana']['webserver']
-    kibana_user = node[webserver]['user']
-  else
-    kibana_user = 'nobody'
-  end
-else
-  kibana_user = node['kibana']['user']
-  kibana_user kibana_user do
-    name kibana_user
-    group kibana_user
-    home node['kibana']['install_dir']
-    action :create
-  end
+docker_registry 'https://index.docker.io/v1/' do
+  username credentials['username']
+  email credentials['email']
+  password credentials['password']
 end
 
-kibana_install 'kibana' do
-  user kibana_user
-  group kibana_user
-  install_dir node['kibana']['install_dir']
-  install_type node['kibana']['install_type']
-  action :create
+directory "#{attach_dir}/data" do
+  mode '0755'
+  recursive true
 end
 
+directory logstash_dir do
+  mode '0755'
+  recursive true
+end
 
-template "#{node['kibana']['install_dir']}/current/config.js" do
-  source node['kibana']['config_template']
-  cookbook node['kibana']['config_cookbook']
+template "#{logstash_dir}/logstash.conf" do
+  source "config/logstash-config.conf.erb"
   mode '0750'
-  user kibana_user
 end
 
-link "#{node['kibana']['install_dir']}/current/app/dashboards/default.json" do
-  to 'logstash.json'
-  only_if { !File.symlink?("#{node['kibana']['install_dir']}/current/app/dashboards/default.json") }
+docker_image 'kibana' do
+  tag '4.5'
+  action :pull
+  notifies :redeploy, 'docker_container[kibana]'
 end
 
-kibana_web 'kibana' do
-  template_cookbook 'stack-logger'
-  type node['kibana']['webserver']
-  docroot "#{node['kibana']['install_dir']}/current"
-  es_server node['kibana']['es_server']
-  not_if { node['kibana']['webserver'].empty? }
+docker_image 'elasticsearch' do
+  tag '2.3'
+  action :pull
+  notifies :redeploy, 'docker_container[elasticsearch]'
 end
 
-htpasswd "#{node['nginx']['dir']}/htpassword" do
-  user data_bag_item('kibana', 'credentials')['user']
-  password data_bag_item('kibana', 'credentials')['password']
+docker_container 'elasticsearch' do
+  repo 'elasticsearch'
+  tag '2.3'
+  volumes [ "#{attach_dir}/data:/usr/share/elasticsearch/data" ]
+end
+
+docker_image 'logstash' do
+  repo "#{docker_repo}/logstash"
+  tag 'latest'
+  action :pull
+  notifies :redeploy, 'docker_container[logstash]'
+end
+
+docker_container 'logstash' do
+  repo "#{docker_repo}/logstash"
+  tag 'latest'
+  port "5000:5000"
+  links ['elasticsearch:elasticsearch']
+  command "logstash -f /opt/logstash/server/etc/conf.d/"
+end
+
+docker_container 'kibana' do
+  repo 'kibana'
+  tag '4.5'
+  port "5601:5601"
+  links ['elasticsearch:elasticsearch']
+end
+
+docker_image 'nginx' do
+  repo "#{docker_repo}/kibana-nginx"
+  tag 'latest'
+  action :pull
+  notifies :redeploy, 'docker_container[nginx]'
+end
+
+docker_container 'nginx' do
+  repo "#{docker_repo}/kibana-nginx"
+  tag 'latest'
+  port "80:80"
+  links ['kibana:kibana']
 end

@@ -1,3 +1,13 @@
 # Stack Base
 
-This cookbook represents the base layer of nearly any instance in the stack
+Basic layer of all instances converged with `the-startup-stack`.
+
+It includes a few recipes
+
+* 'apt'
+* 'ntp'
+* 'ohai'
+* 'ulimit'
+* 'openssh'
+
+It will install a few more necesary packages like `curl`, `htop` and more.

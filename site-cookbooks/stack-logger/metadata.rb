@@ -6,9 +6,5 @@ description      'Installs/Configures stack-logger'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version          '1.0.9'
 
-depends 'htpasswd'
+depends 'docker', '~> 2.0'
 depends 'aws'
-depends 'java'
-depends 'elasticsearch'
-depends 'logstash'
-depends 'kibana'
