@@ -1,6 +1,6 @@
 # Stack Logger
 
-![The Startup Stack](http://assets.avi.io/logo-black.png)
+![The Startup Stack](https://camo.githubusercontent.com/b9e9315c5e05dabe865244056f8c75b033d4d99f/687474703a2f2f6173736574732e6176692e696f2f6c6f676f2d626c61636b2e706e67)
 
 
 `stack-logger` is part of [the-startup-stack](http://the-startup-stack.com).

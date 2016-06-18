@@ -1,5 +1,9 @@
 # Stack Logger Change Log
 
+## 1.0.11
+
+* [@KensoDev] - 2016/06/17 - Sharing an HTTPS based image in the README
+
 ## 1.0.10
 
 * [@KensoDev] - 2016/06/17 - README changes
