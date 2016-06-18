@@ -2,7 +2,7 @@
 # Cookbook Name:: stack-logger
 # Recipe:: default
 #
-# Copyright 2015, The Startup Stack
+# Copyright 2016, The Startup Stack
 #
 # Permission is hereby granted, free of charge, to any person obtaining
 # a copy of this software and associated documentation files (the

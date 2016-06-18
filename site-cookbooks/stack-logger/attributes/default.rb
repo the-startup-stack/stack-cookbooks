@@ -4,4 +4,3 @@ default['logger']['raid_level']  = 10
 default['logger']['disk_piops']  = 3000
 default['logger']['mount_point'] = '/mnt'
 default['logger']['docker_repo'] = 'the-startup-stack'
-

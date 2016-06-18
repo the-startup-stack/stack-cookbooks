@@ -1,68 +1,72 @@
-stack-logger Cookbook
-=====================
-TODO: Enter the cookbook description here.
+# Stack Logger
 
-e.g.
-This cookbook makes your favorite breakfast sandwich.
+![The Startup Stack](http://assets.avi.io/logo-black.png)
 
-Requirements
-------------
-TODO: List your cookbook requirements. Be sure to include any requirements this cookbook has on platforms, libraries, other cookbooks, packages, operating systems, etc.
 
-e.g.
-#### packages
-- `toaster` - stack-logger needs toaster to brown your bagel.
+`stack-logger` is part of [the-startup-stack](http://the-startup-stack.com).
 
-Attributes
-----------
-TODO: List your cookbook attributes here.
+This cookbook will install a complete ELK stack based on docker.
 
-e.g.
-#### stack-logger::default
-<table>
-  <tr>
-    <th>Key</th>
-    <th>Type</th>
-    <th>Description</th>
-    <th>Default</th>
-  </tr>
-  <tr>
-    <td><tt>['stack-logger']['bacon']</tt></td>
-    <td>Boolean</td>
-    <td>whether to include bacon</td>
-    <td><tt>true</tt></td>
-  </tr>
-</table>
+## What it includes?
 
-Usage
------
-#### stack-logger::default
-TODO: Write usage instructions for each cookbook.
+### Raid
 
-e.g.
-Just include `stack-logger` in your node's `run_list`:
+RAID level disk is included in this cookbook so you can get more storage space
+for your logs.
 
-```json
-{
-  "name":"my_node",
-  "run_list": [
-    "recipe[stack-logger]"
-  ]
-}
+## Docker
+
+This will install and configure the docker service so all images can be pulled
+from the Docker registry.
+
+## Settings
+
+### Data Bags
+
+Couple of data bags included to set up the cookbook
+
+* `aws` `main` for AWS
+* `docker` `credentials` for docker. that includes `username`, `password` and
+  `email`
+
+### Attributes
+
+```
+override['logger']['disk_count']  = 5
+override['logger']['disk_size']   = 1025
+override['logger']['raid_level']  = 10
+override['logger']['disk_piops']  = 3000
+override['logger']['mount_point'] = '/mnt'
+override['logger']['docker_repo'] = 'the-startup-stack'
 ```
 
-Contributing
-------------
-TODO: (optional) If this is a public cookbook, detail the process for contributing. If this is a private cookbook, remove this section.
+## License
 
-e.g.
-1. Fork the repository on Github
-2. Create a named feature branch (like `add_component_x`)
-3. Write your change
-4. Write tests for your change (if applicable)
-5. Run the tests, ensuring they all pass
-6. Submit a Pull Request using Github
+Copyright 2015, The Startup Stack
 
-License and Authors
--------------------
-Authors: TODO: List authors
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+"Software"), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+## Authors
+
+* Avi Tzurel [@kensodev](http://twitter.com/kensodev) [KensoDev github](http://github.com/kensodev)
+
+## Issues
+
+[https://github.com/the-startup-stack/stack-cookbooks/issues](https://github.com/the-startup-stack/stack-cookbooks/issues)
